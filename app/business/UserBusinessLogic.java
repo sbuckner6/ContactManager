@@ -1,38 +1,59 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package business;
 
 import data.UserDataAccess;
+import java.sql.SQLDataException;
+import java.sql.SQLException;
 import java.util.Date;
+import javax.xml.bind.ValidationException;
 import models.User;
 
 public class UserBusinessLogic {
     
-    public static User loginUser(String emailOrUsername, String password) {
-        User user = UserDataAccess.getUserByEmailOrUsername(emailOrUsername);
+    public static User loginUser(String emailOrUsername, String password) 
+            throws SQLDataException, ValidationException {
         
+        User user;
+        
+        try {
+            user = UserDataAccess.getUserByEmailOrUsername(emailOrUsername);
+        } catch (SQLDataException e) {
+            throw e;
+        }
+          
         if (user == null) {
-            return null;
+            throw new SQLDataException("Username or email not found!");
         }
         
         if (!user.password.equals(password)) {
-            return null;
+            throw new ValidationException("Incorrect password!");
         }
         
         return user;
     }
     
-    public static boolean createUser(String email, String username, 
-            String password, String firstname, String lastname, Date birthday, 
-            boolean isAdmin) {
+    public static void createUser(String email, String emailConfirm, 
+            String username, String password, String passwordConfirm, 
+            String firstName, String lastName, Date birthday, 
+            boolean isAdmin) throws SQLException, ValidationException {      
+              
+        if (!email.equals(emailConfirm)) {
+            throw new ValidationException("Emails do not match!");
+        }
         
-        User user = new User(email, username, password, firstname, lastname, 
-                birthday, false);
+        if (!password.equals(passwordConfirm)) {
+            throw new ValidationException("Passwords do not match!");
+        }
         
-        return UserDataAccess.createUser(email, username, password, firstname,
-                lastname, birthday, false);
+        if (email.isEmpty() || password.isEmpty() || firstName.isEmpty() || 
+                lastName.isEmpty() || birthday == null) {
+            throw new ValidationException("All fields required!");
+        }
+        
+        try {
+            UserDataAccess.createUser(email, username, password, firstName,
+                lastName, birthday, false);
+        } catch (SQLException e) {
+            throw e;
+        }
     }
 }

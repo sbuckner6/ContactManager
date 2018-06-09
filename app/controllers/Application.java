@@ -7,7 +7,8 @@ import play.mvc.Scope.Session;
 import java.util.*;
 
 import models.*;
-import play.db.jpa.GenericModel.JPAQuery;
+import play.Logger;
+
 
 public class Application extends Controller {
 
@@ -17,9 +18,9 @@ public class Application extends Controller {
         return currentUserId != null && !currentUserId.isEmpty();
     } 
     
-    public static void index() {
+    public static void index(String error) {
         if (!isLoggedIn()) {
-            login();
+            login(null);
             return;
         }
         
@@ -29,51 +30,59 @@ public class Application extends Controller {
         render();
     }
 
-    public static void login() {
+    public static void login(String error) {
         if (isLoggedIn()) {
-            index();
+            index(null);
             return;
         }
-        render();
+        render(error);
     }
     
-    public static void register() {
-        if (isLoggedIn()) {
-            index();
+    public static void loginPOST(String emailOrUsername, String password) {
+        User currentUser;
+        
+        try {
+            currentUser = UserBusinessLogic.loginUser(emailOrUsername, password);       
+            final Session session = Session.current();
+            session.put("currentUser", currentUser.id);
+            index(null);
+        } catch (Exception e) {         
+            Logger.error(e, e.getMessage());
+            login("Invalid credentials!");
             return;
         }
-        render();
+    }  
+    
+    public static void register(String error) {
+        if (isLoggedIn()) {
+            index(null);
+            return;
+        }
+        render(error);
     }
     
-    public static void registerPOST(String email, String username, 
-            String password, String firstName, String lastName, Date birthday) {
+    public static void registerPOST(String email, String emailConfirm, 
+            String username, String password, String passwordConfirm, 
+            String firstName, String lastName, Date birthday) {
         
-        if (UserBusinessLogic.createUser(email, username, password, firstName, 
-                lastName, birthday, true)) {
-            login();
+        try {
+            UserBusinessLogic.createUser(email, emailConfirm, username, 
+                    password, passwordConfirm, firstName, lastName, birthday, 
+                    true); 
+        } catch (Exception e) {   
+            Logger.error(e, e.getMessage());
+            register(e.getMessage());
             return;
         }
         
-        register();
+        login(null);
     }
     
     public static void logout() {
         final Session session = Session.current();
         session.clear();
-        login();
+        login("");
     }
-    
-    public static void loginPOST(String emailOrUsername, String password) {
-        User currentUser = UserBusinessLogic.loginUser(emailOrUsername, password);
-        
-        if (currentUser != null) {
-            final Session session = Session.current();
-            session.put("currentUser", currentUser.id);
-            index();
-            return;
-        }
-         
-        login();
-    }   
+     
 }
     

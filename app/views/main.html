@@ -14,7 +14,11 @@
     <body>
         <h1>Contact Manager</h1>
         <hr/>
-        
+                
+        #{if (error != null)}
+            <p class="error">${error}</p>
+        #{/if}
+
         #{doLayout /}
     </body>
 </html>
