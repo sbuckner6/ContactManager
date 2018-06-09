@@ -1,0 +1,44 @@
+#{extends 'main.html' /}
+
+<form action="@{Application.registerPOST()}" method="POST">
+    <fieldset>
+        <legend>Register</legend>
+        
+        <label>Desired username:</label>
+        <input type="text" name="username" />
+        <br>
+
+        <label>First name:</label>
+        <input type="text" name="firstname" />
+        <br>
+
+        <label>Last name:</label>
+        <input type="text" name="lastname" />
+        <br>
+
+        <label>Birthday:</label>
+        <input type="date" name="birthday" />
+        <br>
+
+        <label>Email address:</label>
+        <input type="text" name="email" />
+        <br>
+
+        <label>Confirm email address:</label>
+        <input type="text" name="emailConfirm" />
+        <br>
+
+        <label>Password:</label>
+        <input type="password" name="password" />
+        <br>
+
+        <label>Confirm password:</label>
+        <input type="password" name="passwordConfirm" />
+        <br>
+
+        <input type="submit" value="Create account" />
+        <br>
+    </fieldset>
+</form> 
+
+<a href="@{Application.login()}">Cancel</a>

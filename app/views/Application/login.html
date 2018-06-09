@@ -1,0 +1,19 @@
+#{extends 'main.html' /}
+
+<form action="@{Application.loginPOST()}" method="POST">
+    <fieldset>
+        <legend>Login</legend>
+        
+        <label>Email or username:</label>
+        <input type="text" name="emailOrUsername" />
+        <br>
+
+        <label>Password:</label>
+        <input type="password" name="password" />
+        <br>
+
+        <input type="submit" value="Login" />
+    </fieldset>
+</form>
+
+<a href="@{Application.register()}">Register</a>

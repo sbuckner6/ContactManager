@@ -1,0 +1,6 @@
+# Application dependencies
+
+require:
+    - play
+    - jdbc
+    - org.postgresql -> postgresql 9.0
