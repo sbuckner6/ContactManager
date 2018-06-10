@@ -45,6 +45,7 @@ public class UserDataAccess {
      */
     public static User getUserByEmailOrUsername(String emailOrUsername) 
             throws SQLDataException {
+        
         final User user = User.find("email = :email OR username = :username")
                 .bind("email", emailOrUsername)
                 .bind("username", emailOrUsername)
@@ -81,6 +82,29 @@ public class UserDataAccess {
             }
         } catch (Exception e) {
             throw new SQLException("Failed to create user! " + e.getMessage());
+        }
+    }
+    
+    /**
+     *
+     * @param userId
+     * @param alertDays
+     * @throws SQLException
+     */
+    public static void updateAlertDaysForUser(long userId, int alertDays) 
+            throws SQLException {
+        
+        final User user;
+        
+        try {
+            user = getUser(userId);
+            user.alertdays = alertDays;
+            if (!user.validateAndSave()) {
+                throw new SQLException();
+            }
+        } catch (Exception e) {
+            throw new SQLException("Failed to update user alert days! " + 
+                    e.getMessage());
         }
     }
 }

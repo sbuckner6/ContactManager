@@ -22,7 +22,7 @@ public class Application extends Controller {
      *
      * @param error
      */
-    public static void index(String error) {
+    public static void index(String error) {      
         final String currentUserIdString = session.get("id");
         
         if (currentUserIdString == null || currentUserIdString.isEmpty()) {
@@ -43,7 +43,11 @@ public class Application extends Controller {
         render(error, contactUsers);
     }
 
-    public static void indexDELETE(long contactId) {
+    /**
+     *
+     * @param contactId
+     */
+    public static void indexDELETE(long contactId) {       
         final long currentUserId = Long.parseLong(session.get("id"));
         
         ContactBusinessLogic.deleteContact(currentUserId, contactId);
@@ -55,7 +59,7 @@ public class Application extends Controller {
      *
      * @param error
      */
-    public static void login(String error) {
+    public static void login(String error) {       
         final String currentUserIdString = session.get("id");
         
         if (currentUserIdString != null) {
@@ -71,7 +75,7 @@ public class Application extends Controller {
      * @param emailOrUsername
      * @param password
      */
-    public static void loginPOST(String emailOrUsername, String password) {
+    public static void loginPOST(String emailOrUsername, String password) {      
         User currentUser;
         
         try {
@@ -97,7 +101,7 @@ public class Application extends Controller {
      *
      * @param error
      */
-    public static void register(String error) {
+    public static void register(String error) {       
         final String currentUserIdString = session.get("id");
         
         if (currentUserIdString != null) {
@@ -146,6 +150,7 @@ public class Application extends Controller {
     
     /**
      *
+     * @param error
      */
     public static void addContact(String error) {
         render(error);
@@ -153,9 +158,9 @@ public class Application extends Controller {
     
     /**
      *
+     * @param emailOrUsername
      */
-    public static void addContactPOST(String emailOrUsername) {
-        
+    public static void addContactPOST(String emailOrUsername) {        
         try {
             final long currentUserId = Long.parseLong(session.get("id"));
             ContactBusinessLogic.addContactByEmailOrUsername(currentUserId,
@@ -170,16 +175,31 @@ public class Application extends Controller {
     
     /**
      *
+     * @param error
+     * @param error
      */
-    public static void settings() {
-        render();
+    public static void settings(String error) {
+        final int alertDays = Integer.parseInt(session.get("alertDays"));
+        render(error, alertDays);
     }
     
     /**
      *
+     * @param alertDays
      */
-    public static void settingsPOST() {
-        render();
+    public static void settingsPOST(int alertDays) {
+        final long currentUserId = Long.parseLong(session.get("id"));
+        
+        try {
+            UserBusinessLogic.updateAlertDaysForUser(currentUserId, alertDays);
+            session.put("alertDays", alertDays);
+        } catch (Exception e) { 
+            Logger.error(e, e.getMessage());
+            settings(e.getMessage());
+            return;
+        }
+        
+        settings(null);
     }
      
 }

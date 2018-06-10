@@ -18,7 +18,7 @@ GET     /public/                                staticDir:public
 
 
 # Catch all
-*       /{action}                               Application.{action}
+*       /{action}                  Application.{action}
 
 
 # Catch all

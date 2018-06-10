@@ -4,7 +4,9 @@
 
 <ul>
    #{list items:contactUsers, as:'contact'}
-   <form action="@{Application.indexDELETE(contact.id)}" method="DELETE">
+   <form action="@{Application.indexDELETE()}" method="DELETE">
+       <input type="hidden" name="contactId" value="${contact.id}" />
+       
        <b>${contact.firstname} ${contact.lastname} (${contact.username})</b>
        <br>
        

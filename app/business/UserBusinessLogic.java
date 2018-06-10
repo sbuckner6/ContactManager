@@ -27,13 +27,7 @@ public class UserBusinessLogic {
     public static User loginUser(String emailOrUsername, String password) 
             throws SQLDataException, ValidationException {
         
-        final User user;
-        
-        try {
-            user = UserDataAccess.getUserByEmailOrUsername(emailOrUsername);
-        } catch (Exception e) {
-            throw new SQLDataException(e.getMessage());
-        }
+        final User user = UserDataAccess.getUserByEmailOrUsername(emailOrUsername);
           
         if (user == null) {
             throw new SQLDataException("Username or email not found!");
@@ -78,11 +72,25 @@ public class UserBusinessLogic {
             throw new ValidationException("All fields required!");
         }
         
-        try {
-            UserDataAccess.createUser(email, username, password, firstName,
+        UserDataAccess.createUser(email, username, password, firstName,
                 lastName, birthday, false);
-        } catch (SQLException e) {
-            throw e;
+    }
+    
+    /**
+     *
+     * @param userId
+     * @param alertDays
+     * @throws SQLException
+     * @throws ValidationException
+     */
+    public static void updateAlertDaysForUser(long userId, int alertDays) 
+            throws SQLException, ValidationException {
+        
+        if (alertDays < 0) {
+            throw new ValidationException("Number of alert days must be greater"
+                    + "than 1!");
         }
+        
+        UserDataAccess.updateAlertDaysForUser(userId, alertDays);
     }
 }
