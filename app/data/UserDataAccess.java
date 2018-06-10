@@ -4,11 +4,11 @@ import java.sql.SQLDataException;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
-
 import models.User;
 import play.Logger;
 
 /**
+ * Data access layer for User-related functionality.
  *
  * @author simon
  */
@@ -25,8 +25,9 @@ public class UserDataAccess {
     }
     
     /**
+     * Retrieves all User objects corresponding to a list of userIds.
      *
-     * @param ids
+     * @param ids list of Long
      * @return
      */
     public static List<User> getUsersByIdList(List<Long> ids) {
@@ -37,14 +38,20 @@ public class UserDataAccess {
         return users;
     }
     
+    /**
+     *
+     * @return list of Users.
+     */
     public static List<User> getAllUsers() {
         return User.findAll();
     }
     
     /**
+     * Retrieves a User object based on a String that can match either their
+     * username or their email.
      *
      * @param emailOrUsername
-     * @return
+     * @return User
      * @throws SQLDataException
      */
     public static User getUserByEmailOrUsername(String emailOrUsername) 

@@ -5,9 +5,6 @@
 # Home page
 GET     /                                       Application.index
 
-POST    /login                                  Application.loginPOST
-
-POST    /register                               Application.registerPOST
 
 
 # Ignore favicon requests

@@ -1,31 +1,34 @@
 package business;
 
 import data.UserDataAccess;
-
 import java.sql.SQLDataException;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
-
 import javax.xml.bind.ValidationException;
-
 import models.User;
 
 /**
+ * Business logic and validation layer for User-based functionality.
  *
  * @author simon
  */
 public class UserBusinessLogic {
     
+    /**
+     *
+     * @return
+     */
     public static List<User> getAllUsers() {
         return UserDataAccess.getAllUsers();
     }
     
     /**
+     * Validates login credentials and returns the User that matches them.
      *
-     * @param emailOrUsername
+     * @param emailOrUsername Can be either an email or a password.
      * @param password
-     * @return
+     * @return User
      * @throws SQLDataException
      * @throws ValidationException
      */
@@ -46,7 +49,7 @@ public class UserBusinessLogic {
     }
     
     /**
-     *
+     * 
      * @param email
      * @param emailConfirm
      * @param username

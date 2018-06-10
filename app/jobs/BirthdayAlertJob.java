@@ -7,16 +7,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import models.Contact;
 import models.User;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
 import play.Logger;
 import play.jobs.*;
-import play.mvc.Scope;
-import play.mvc.Scope.Session;
 
 /**
+ * Daily job that checks to see if users have any contacts with upcoming 
+ * birthdays and notifies them via email.
  *
  * @author simon
  */
@@ -24,6 +23,7 @@ import play.mvc.Scope.Session;
 public class BirthdayAlertJob extends Job {
     
     /**
+     * Calculate how many calendar days date2 is ahead of date1.
      *
      * @param date1
      * @param date2
@@ -45,6 +45,7 @@ public class BirthdayAlertJob extends Job {
     }
     
     /**
+     * Email recipient a reminder of their contact's upcoming birthday.
      *
      * @param recipient
      * @param contact

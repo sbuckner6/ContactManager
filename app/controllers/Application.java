@@ -3,14 +3,10 @@ package controllers;
 import business.ContactBusinessLogic;
 import business.UserBusinessLogic;
 import java.sql.SQLDataException;
-
 import java.util.*;
-
 import models.*;
-
 import play.Logger;
 import play.mvc.*;
-import play.mvc.Scope.Session;
 
 /**
  *
@@ -42,7 +38,7 @@ public class Application extends Controller {
             
         render(error, contactUsers);
     }
-
+    
     /**
      *
      * @param contactId
@@ -175,7 +171,6 @@ public class Application extends Controller {
     
     /**
      *
-     * @param error
      * @param error
      */
     public static void settings(String error) {

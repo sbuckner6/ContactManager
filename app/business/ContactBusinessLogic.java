@@ -2,19 +2,16 @@ package business;
 
 import data.ContactDataAccess;
 import data.UserDataAccess;
-
 import java.sql.SQLDataException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import models.Contact;
 import models.User;
 
 /**
- *
+ * Business logic and validation layer for Contact-based functionality.
+ * 
  * @author simon
  */
 public class ContactBusinessLogic {

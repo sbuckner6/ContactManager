@@ -8,15 +8,17 @@ import models.User;
 import play.Logger;
 
 /**
+ * Data access layer for Contact-related functionality.
  *
  * @author simon
  */
 public class ContactDataAccess {
     
     /**
+     * Returns list of Contact objects belonging to User with userId
      *
      * @param userId
-     * @return
+     * @return list of contacts
      * @throws SQLDataException
      */
     public static List<Contact> getContacts(long userId) 
