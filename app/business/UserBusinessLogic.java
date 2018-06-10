@@ -5,6 +5,7 @@ import data.UserDataAccess;
 import java.sql.SQLDataException;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.List;
 
 import javax.xml.bind.ValidationException;
 
@@ -15,6 +16,10 @@ import models.User;
  * @author simon
  */
 public class UserBusinessLogic {
+    
+    public static List<User> getAllUsers() {
+        return UserDataAccess.getAllUsers();
+    }
     
     /**
      *

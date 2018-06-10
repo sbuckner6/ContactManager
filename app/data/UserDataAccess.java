@@ -37,6 +37,10 @@ public class UserDataAccess {
         return users;
     }
     
+    public static List<User> getAllUsers() {
+        return User.findAll();
+    }
+    
     /**
      *
      * @param emailOrUsername
