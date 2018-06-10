@@ -20,7 +20,7 @@ import play.jobs.*;
  *
  * @author simon
  */
-@On("0 0 12 * * ?")
+@On("0 0 0 * * ?")
 public class BirthdayAlertJob extends Job {
     
     /**
@@ -94,6 +94,8 @@ public class BirthdayAlertJob extends Job {
     } 
     
     public void doJob() {
+        Logger.info("Running BirthdayAlertJob");
+        
         Date now = new Date();
         
         final List<User> users = UserBusinessLogic.getAllUsers();
@@ -111,7 +113,7 @@ public class BirthdayAlertJob extends Job {
                     }
                 }
             } catch (Exception e) {
-                Logger.error(e, e.getMessage());
+                continue;
             }
         }
     }

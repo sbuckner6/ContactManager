@@ -31,7 +31,7 @@ public class Application extends Controller {
         
         try {
             contactUsers = ContactBusinessLogic.getContactsAsUsers(currentUserId);
-        } catch (SQLDataException e) {
+        } catch (Exception e) {
             render(error, null);
             return;
         }
