@@ -50,6 +50,7 @@ public class BirthdayAlertJob extends Job {
      *
      * @param recipient
      * @param contact
+     * @throws org.apache.commons.mail.EmailException
      */
     public void sendBirthdayReminder(User recipient, User contact) 
             throws EmailException {
