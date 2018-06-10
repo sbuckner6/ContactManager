@@ -4,9 +4,11 @@ A Java application written in the Play framework as part of a 24-hour coding cha
 
 ### Prerequisites
 
-Ant
+JDK 7
 
 Play Framework 1.2.4
+
+Ant
 
 ### Installing Play Framework
 

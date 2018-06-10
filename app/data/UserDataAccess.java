@@ -30,7 +30,12 @@ public class UserDataAccess {
      * @param ids list of Long
      * @return
      */
-    public static List<User> getUsersByIdList(List<Long> ids) {
+    public static List<User> getUsersByIdList(List<Long> ids) 
+            throws SQLException {
+        
+        if (ids.isEmpty()) {
+            throw new SQLException("No userIds provided!");
+        }
         
         final List<User> users = User.find("id in :ids")
                 .bind("ids", ids).fetch();

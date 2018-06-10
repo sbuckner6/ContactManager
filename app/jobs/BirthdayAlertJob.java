@@ -54,7 +54,7 @@ public class BirthdayAlertJob extends Job {
         final SimpleEmail email;
         try {
             email = new SimpleEmail();
-            email.setFrom("noreply@github.com");
+            email.setFrom("contactmanager24@gmail.com");
             email.addTo(recipient.email);
             email.setSubject("Only " + Integer.toString(recipient.alertdays) + " days "
                     + "until " + contact.firstname + "'s birthday!");

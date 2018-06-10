@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import models.Contact;
 import models.User;
+import play.Logger;
 
 /**
  * Business logic and validation layer for Contact-based functionality.
@@ -23,7 +24,7 @@ public class ContactBusinessLogic {
      * @throws SQLDataException
      */
     public static List<User> getContactsAsUsers(long userId) 
-            throws SQLDataException {
+            throws SQLDataException, SQLException {
         
         final List<Contact> contacts;
         
@@ -39,7 +40,12 @@ public class ContactBusinessLogic {
             contactIds.add(contact.contactid);
         }
         
-        return UserDataAccess.getUsersByIdList(contactIds);
+        try {
+            return UserDataAccess.getUsersByIdList(contactIds);
+        } catch (SQLException e) {
+            Logger.error(e, e.getMessage());
+            return new ArrayList<User>();
+        }
     }
     
     /**
