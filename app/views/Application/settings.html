@@ -1,0 +1,14 @@
+#{extends 'Application/navigation.html' /}
+
+<form action="@{Application.settingsPOST()}" method="POST">
+    <fieldset>
+        <legend>Settings</legend> 
+        
+        <label>Alert Days</label>
+        <input type="number" title="How many days before a contact's birthday would you like to be notified?" name="alertDays" value="${alertDays}"/>
+        <br>
+
+        <input type="submit" value="Save" />
+        <br>
+    </fieldset>
+</form> 

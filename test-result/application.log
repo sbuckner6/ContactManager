@@ -1,0 +1,5 @@
+10 Jun 2018 05:01:15,164 INFO  ~ Starting /home/simon/Projects/ContactManager
+10 Jun 2018 05:01:15,792 WARN  ~ You're running Play! in DEV mode
+10 Jun 2018 05:01:15,880 INFO  ~ Listening for HTTP on port 9000 (Waiting a first request to start) ...
+10 Jun 2018 05:01:21,588 INFO  ~ Connected to jdbc:h2:mem:play;MODE=MYSQL;LOCK_MODE=0
+10 Jun 2018 05:01:22,170 INFO  ~ Application 'ContactManager' is now started !

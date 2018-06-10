@@ -1,0 +1,13 @@
+#{extends 'Application/navigation.html' /}
+
+<form action="@{Application.addContactPOST()}" method="POST">
+    <fieldset>
+        <legend>Add Contact</legend>
+        
+        <label>Email or username:</label>
+        <input type="text" name="emailOrUsername" />
+        <br>
+
+        <input type="submit" value="Add" />
+    </fieldset>
+</form>

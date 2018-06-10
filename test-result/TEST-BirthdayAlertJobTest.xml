@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<testsuite failures="0" time="0" errors="0" skipped="0" tests="2" name="BirthdayAlertJobTest">
+  <testcase classname="BirthdayAlertJobTest" name="testSendBirthdayReminder" time="0">
+      </testcase>
+  <testcase classname="BirthdayAlertJobTest" name="testCompareDates" time="0">
+      </testcase>
+</testsuite>

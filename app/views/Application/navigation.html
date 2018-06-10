@@ -1,0 +1,12 @@
+#{extends 'main.html' /}
+
+<nav class="navbar navbar-default">
+    <ul class="nav navbar-nav">
+        <li><a href="@{Application.index()}">My Contacts</a></li>
+        <li><a href="@{Application.addContact()}">Add Contact</a></li>
+        <li><a href="@{Application.settings()}">Settings</a></li>
+        <li><a href="@{Application.logout()}">Logout</a></li>
+    </ul>
+</nav>
+
+#{doLayout /}
