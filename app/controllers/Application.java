@@ -1,17 +1,17 @@
 package controllers;
 
 import business.UserBusinessLogic;
-import play.mvc.*;
-import play.mvc.Scope.Session;
 
 import java.util.*;
 
 import models.*;
-import play.Logger;
 
+import play.Logger;
+import play.mvc.*;
+import play.mvc.Scope.Session;
 
 public class Application extends Controller {
-
+    
     private static Boolean isLoggedIn() {
         final Session session = Session.current();
         final String currentUserId = session.get("currentUserId");
@@ -23,9 +23,6 @@ public class Application extends Controller {
             login(null);
             return;
         }
-        
-        Session session = Session.current();
-        String currentUserId = session.get("currentUserId");
         
         render();
     }
@@ -44,7 +41,7 @@ public class Application extends Controller {
         try {
             currentUser = UserBusinessLogic.loginUser(emailOrUsername, password);       
             final Session session = Session.current();
-            session.put("currentUser", currentUser.id);
+            session.put("currentUserId", currentUser.id.toString());
             index(null);
         } catch (Exception e) {         
             Logger.error(e, e.getMessage());
@@ -81,7 +78,7 @@ public class Application extends Controller {
     public static void logout() {
         final Session session = Session.current();
         session.clear();
-        login("");
+        login(null);
     }
      
 }

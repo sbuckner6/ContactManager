@@ -1,10 +1,13 @@
 package business;
 
 import data.UserDataAccess;
+
 import java.sql.SQLDataException;
 import java.sql.SQLException;
 import java.util.Date;
+
 import javax.xml.bind.ValidationException;
+
 import models.User;
 
 public class UserBusinessLogic {

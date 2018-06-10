@@ -3,9 +3,8 @@ package data;
 import java.sql.SQLDataException;
 import java.sql.SQLException;
 import java.util.Date;
-import models.User;
-import play.db.jpa.GenericModel.JPAQuery;
 
+import models.User;
 
 public class UserDataAccess {
     

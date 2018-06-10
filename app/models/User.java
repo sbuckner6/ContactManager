@@ -1,6 +1,7 @@
 package models;
 
 import java.util.Date;
+
 import javax.persistence.*;
 
 import play.db.jpa.*;
@@ -17,7 +18,8 @@ public class User extends Model {
     public Date birthday;
     public boolean isadmin;
     
-    public User(String email, String username, String password, String firstname, String lastname, Date birthday, boolean isadmin) {
+    public User(String email, String username, String password, 
+            String firstname, String lastname, Date birthday, boolean isadmin) {
         this.email = email;
         this.username = username;
         this.password = password;
