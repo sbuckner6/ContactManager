@@ -4,6 +4,10 @@ import javax.persistence.*;
 
 import play.db.jpa.*;
 
+/**
+ *
+ * @author simon
+ */
 @Entity
 @Table(name="\"Contact\"")
 public class Contact extends Model {

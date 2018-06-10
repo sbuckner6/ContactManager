@@ -10,17 +10,29 @@ import javax.xml.bind.ValidationException;
 
 import models.User;
 
+/**
+ *
+ * @author simon
+ */
 public class UserBusinessLogic {
     
+    /**
+     *
+     * @param emailOrUsername
+     * @param password
+     * @return
+     * @throws SQLDataException
+     * @throws ValidationException
+     */
     public static User loginUser(String emailOrUsername, String password) 
             throws SQLDataException, ValidationException {
         
-        User user;
+        final User user;
         
         try {
             user = UserDataAccess.getUserByEmailOrUsername(emailOrUsername);
-        } catch (SQLDataException e) {
-            throw e;
+        } catch (Exception e) {
+            throw new SQLDataException(e.getMessage());
         }
           
         if (user == null) {
@@ -34,6 +46,20 @@ public class UserBusinessLogic {
         return user;
     }
     
+    /**
+     *
+     * @param email
+     * @param emailConfirm
+     * @param username
+     * @param password
+     * @param passwordConfirm
+     * @param firstName
+     * @param lastName
+     * @param birthday
+     * @param isAdmin
+     * @throws SQLException
+     * @throws ValidationException
+     */
     public static void createUser(String email, String emailConfirm, 
             String username, String password, String passwordConfirm, 
             String firstName, String lastName, Date birthday, 

@@ -6,6 +6,10 @@ import javax.persistence.*;
 
 import play.db.jpa.*;
 
+/**
+ *
+ * @author simon
+ */
 @Entity
 @Table(name="\"User\"")
 public class User extends Model {
@@ -16,6 +20,7 @@ public class User extends Model {
     public String firstname;
     public String lastname;
     public Date birthday;
+    public int alertdays;
     public boolean isadmin;
     
     public User(String email, String username, String password, 
@@ -26,6 +31,7 @@ public class User extends Model {
         this.firstname = firstname;
         this.lastname = lastname;
         this.birthday = birthday;
+        this.alertdays = 1;
         this.isadmin = isadmin;
     }
 }

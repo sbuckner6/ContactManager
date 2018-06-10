@@ -1,5 +1,22 @@
-#{extends 'main.html' /}
+#{extends 'Application/navigation.html' /}
 
-<h3>Welcome to the top secret members page!</h3>
- 
-<a href="@{Application.logout()}">Logout</a>
+<h3>My Contacts</h3>
+
+<ul>
+   #{list items:contactUsers, as:'contact'}
+   <form action="@{Application.indexDELETE(contact.id)}" method="DELETE">
+       <b>${contact.firstname} ${contact.lastname} (${contact.username})</b>
+       <br>
+       
+       Email: <a href = "mailto:${contact.email}">${contact.email}</a>
+       <br>
+       
+       Birthday: ${contact.birthday.format('MMMM dd, yyyy')}
+       <br>
+       
+       <input type="submit" value="Delete contact" />
+       <br>
+       <br>
+   </form>
+   #{/list}
+</ul>
