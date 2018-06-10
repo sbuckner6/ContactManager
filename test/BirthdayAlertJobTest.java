@@ -4,7 +4,9 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import jobs.BirthdayAlertJob;
 import models.User;
+import org.apache.commons.mail.EmailException;
 import org.junit.Test;
+import play.Logger;
 import play.test.UnitTest;
 
 /**
@@ -31,13 +33,16 @@ public class BirthdayAlertJobTest extends UnitTest {
     public void testSendBirthdayReminder() {
         BirthdayAlertJob job = new BirthdayAlertJob();
         
-        User recipient = new User("sbbucknerv@gmail.com", "", "Simon", "", "", null, false);
+        User recipient = new User("sbbucknerv@gmail.com", "sbuckner", "password", "Simon", "Buckner", null, false);
         recipient.alertdays = 3;
-        User contact = new User("", "", "John", "Doe", "", null, false);
+        User contact = new User("someone@gmail.com", "someone", "password", "John", "Doe", null, false);
         
-        job.sendBirthdayReminder(recipient, contact);
-        
-        assert(true);
+        try {
+            job.sendBirthdayReminder(recipient, contact);
+        } catch (Exception e) {
+            Logger.error(e, e.getMessage());
+            fail();
+        }
     }
     
 }

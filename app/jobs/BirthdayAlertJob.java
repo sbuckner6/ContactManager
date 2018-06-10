@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import models.User;
+import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
 import play.Logger;
@@ -50,19 +51,45 @@ public class BirthdayAlertJob extends Job {
      * @param recipient
      * @param contact
      */
-    public void sendBirthdayReminder(User recipient, User contact) {
+    public void sendBirthdayReminder(User recipient, User contact) 
+            throws EmailException {
+        
         final SimpleEmail email;
+        
         try {
             email = new SimpleEmail();
-            email.setFrom("contactmanager24@gmail.com");
+            email.setSmtpPort(587);
+            email.setAuthenticator(
+                    new DefaultAuthenticator("contactmanager24@gmail.com", 
+                            "V4!ioKAM^$nmoNn2!$"));
+            email.setDebug(true);
+            email.setHostName("smtp.gmail.com");
+            
+            email.getMailSession().getProperties()
+                    .put("mail.smtps.auth", "true");
+            email.getMailSession().getProperties().put("mail.debug", "true");
+            email.getMailSession().getProperties()
+                    .put("mail.smtps.port", "587");
+            email.getMailSession().getProperties()
+                    .put("mail.smtps.socketFactory.port", "587");
+            email.getMailSession().getProperties()
+                    .put("mail.smtps.socketFactory.class",   
+                            "javax.net.ssl.SSLSocketFactory");
+            email.getMailSession().getProperties()
+                    .put("mail.smtps.socketFactory.fallback", "false");
+            email.getMailSession().getProperties()
+                    .put("mail.smtp.starttls.enable", "true"); 
+            
+            email.setFrom("contactmanager24@gmail.com", "Simon Buckner");
             email.addTo(recipient.email);
             email.setSubject("Only " + Integer.toString(recipient.alertdays) + " days "
                     + "until " + contact.firstname + "'s birthday!");
             email.setMsg("Hi " + recipient.firstname + ",\n\n" + contact.firstname 
                     + " " + contact.lastname + " is having a birthday soon. Let "
                     + "them know you're thinking of them!");
+            email.send();
         } catch (EmailException e) {
-            Logger.error(e, e.getMessage());
+            throw e;
         }
     } 
     
@@ -83,7 +110,7 @@ public class BirthdayAlertJob extends Job {
                         sendBirthdayReminder(user, contactUser);
                     }
                 }
-            } catch (SQLDataException e) {
+            } catch (Exception e) {
                 Logger.error(e, e.getMessage());
             }
         }
